@@ -18,6 +18,30 @@ public class BienesContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+        //Step#1 
+        //** --Conf propiedades
+
+        modelBuilder.Entity<Auto>(auto =>
+        {
+            auto.Property(a => a.Precio).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<Inmueble>(inmu =>
+        {
+            inmu.Property(i => i.Precio).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<Oferta>(oferta =>
+        {
+            oferta.Property(o => o.Monto).HasColumnType("decimal(18,2)");
+        });
+
+
+        //Step#2
+        //--Relaciones
+
+
         // Configuración de la relación Cliente-Visita
         modelBuilder.Entity<Cliente>()
             .HasMany(c => c.Visitas)

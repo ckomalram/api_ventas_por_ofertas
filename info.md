@@ -37,9 +37,10 @@
     Crear entidades/Modelos
     Crear Relaciones en las entidades.
     Crear contexto hacia la DB
-    Crear Servicio relacionado al contexto.
-    Inyectar dependencias en program.cs
+    Inyectar context en program.cs
     Crear Migraciones
     Ejecutar migraciones
+    Crear Servicio relacionado al contexto.
+    Inyectar dependencias en program.cs
     Crear controlador
     Agregar Ilogger  (Opcional)
