@@ -43,46 +43,53 @@ public class BienesContext : DbContext
 
 
         // Configuración de la relación Cliente-Visita
-        modelBuilder.Entity<Cliente>()
-            .HasMany(c => c.Visitas)
-            .WithOne(v => v.Cliente)
-            .HasForeignKey(v => v.ClienteId)
-            .OnDelete(DeleteBehavior.Cascade);
+        // modelBuilder.Entity<Cliente>()
+        //     .HasMany(c => c.Visitas)
+        //     .WithOne(v => v.Cliente)
+        //     .HasForeignKey(v => v.ClienteId)
+        //     .OnDelete(DeleteBehavior.Cascade);
 
         // Configuración de la relación Cliente-Oferta
-        modelBuilder.Entity<Cliente>()
-            .HasMany(c => c.Ofertas)
-            .WithOne(o => o.Cliente)
-            .HasForeignKey(o => o.ClienteId)
-            .OnDelete(DeleteBehavior.Cascade);
+        // modelBuilder.Entity<Cliente>()
+        //     .HasMany(c => c.Ofertas)
+        //     .WithOne(o => o.Cliente)
+        //     .HasForeignKey(o => o.ClienteId)
+        //     .OnDelete(DeleteBehavior.Cascade);
 
         // Configuración de la relación Inmueble-Oferta
-        modelBuilder.Entity<Inmueble>()
-            .HasMany(i => i.Ofertas)
-            .WithOne(o => o.Inmueble)
-            .HasForeignKey(o => o.InmuebleId)
-            .OnDelete(DeleteBehavior.Cascade);
+        // modelBuilder.Entity<Inmueble>()
+        //     .HasMany(i => i.Ofertas)
+        //     .WithOne(o => o.Inmueble)
+        //     .HasForeignKey(o => o.InmuebleId)
+        //     .OnDelete(DeleteBehavior.Cascade);
 
         // Configuración de la relación Auto-Oferta
-        modelBuilder.Entity<Auto>()
-            .HasMany(a => a.Ofertas)
-            .WithOne(o => o.Auto)
-            .HasForeignKey(o => o.AutoId)
-            .OnDelete(DeleteBehavior.Cascade);
+        // modelBuilder.Entity<Auto>()
+        //     .HasMany(a => a.Ofertas)
+        //     .WithOne(o => o.Auto)
+        //     .HasForeignKey(o => o.AutoId)
+        //     .OnDelete(DeleteBehavior.Cascade);
 
         // Configuración de la relación Auto-Visita
+        // modelBuilder.Entity<Auto>()
+        //     .HasMany(a => a.Visitas)
+        //     .WithOne(v => v.Auto)
+        //     .HasForeignKey(v => v.AutoId)
+        //     .OnDelete(DeleteBehavior.Cascade);
+
+        // Configuración de la relación Auto-Patio
+
         modelBuilder.Entity<Auto>()
-            .HasMany(a => a.Visitas)
-            .WithOne(v => v.Auto)
-            .HasForeignKey(v => v.AutoId)
-            .OnDelete(DeleteBehavior.Cascade);
+        .HasOne(a => a.Patio)
+        .WithMany(p => p.Autos)
+        .HasForeignKey(a => a.PatioId);
 
 
         // Configuración de la relación Patio-Visita
-        modelBuilder.Entity<Patio>()
-            .HasMany(p => p.Visitas)
-            .WithOne(v => v.Patio)
-            .HasForeignKey(v => v.PatioId);
+        // modelBuilder.Entity<Patio>()
+        //     .HasMany(p => p.Visitas)
+        //     .WithOne(v => v.Patio)
+        //     .HasForeignKey(v => v.PatioId);
 
         // TODO: Configuración de la relación Patio-Usuario
         // modelBuilder.Entity<Patio>()

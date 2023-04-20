@@ -13,7 +13,7 @@ public class Visita
     public int? InmuebleId { get; set; } // Identificador único del inmueble asociado a la oferta (puede ser nulo)
     public Inmueble Inmueble { get; set; } // Inmueble asociado a la oferta (opcional)
 
-    public int PatioId { get; set; }
-    public Patio Patio { get; set; }
+    // public int PatioId { get; set; }
+    // public Patio Patio { get; set; }
 
 }

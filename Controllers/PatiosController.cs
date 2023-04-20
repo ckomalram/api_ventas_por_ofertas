@@ -1,3 +1,4 @@
+using api_ventas_por_oferta.Core.Dto;
 using api_ventas_por_oferta.Core.Entity;
 using api_ventas_por_oferta.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,14 @@ public class PatiosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Crear(Patio patio)
+    public async Task<IActionResult> Crear(PatioDto patioDto)
     {
-        await _service.CrearPatio(patio);
-        return Ok(patio);
+        var nuevoPatio = new Patio
+        {
+            Nombre = patioDto.Nombre
+        };
+        await _service.CrearPatio(nuevoPatio);
+        return Ok(nuevoPatio);
     }
 
     [HttpGet("{patioId}")]

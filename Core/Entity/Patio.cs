@@ -5,9 +5,9 @@ public class Patio
 {
     public int Id { get; set; } // Identificador único del patio
     public string Nombre { get; set; } // Nombre del patio
-    public ICollection<Auto> Autos { get; set; } // Lista de autos en el patio
+    public List<Auto> Autos { get; set; } // Lista de autos en el patio
 
     // Propiedad de navegacion
-    public List<Visita> Visitas { get; set; }
+    // public List<Visita> Visitas { get; set; }
 
 }
