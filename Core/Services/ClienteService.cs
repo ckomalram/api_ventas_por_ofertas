@@ -14,24 +14,34 @@ public class ClienteService : IClienteService
         _context = context;
     }
 
-    public Task ActualizarCliente(Cliente cliente)
+    public async Task ActualizarCliente(Cliente cliente)
     {
-        throw new NotImplementedException();
+        _context.Entry(cliente).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
     }
 
-    public Task<Cliente> CrearCliente(Cliente cliente)
+    public async Task<Cliente> CrearCliente(Cliente cliente)
     {
-        throw new NotImplementedException();
+        cliente.FechaDeRegistro = DateTime.Now;
+        await _context.Clientes.AddAsync(cliente);
+        await _context.SaveChangesAsync();
+
+        return cliente;
     }
 
-    public Task EliminarCliente(int clienteId)
+    public async Task EliminarCliente(int clienteId)
     {
-        throw new NotImplementedException();
+        var clienteActual = await ObtenerClientePorId(clienteId);
+        if (clienteActual != null)
+        {
+            _context.Clientes.Remove(clienteActual);
+            await _context.SaveChangesAsync();
+        }
     }
 
-    public Task<Cliente> ObtenerClientePorId(int clienteId)
+    public async Task<Cliente> ObtenerClientePorId(int clienteId)
     {
-        throw new NotImplementedException();
+        return await _context.Clientes.FindAsync(clienteId);
     }
 
     public async Task<IEnumerable<Cliente>> ObtenerClientes()
