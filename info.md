@@ -35,6 +35,7 @@
     Instalar librerías de EF , efsqlserver, efdesign
     Configurar la db en appsettings
     Crear entidades/Modelos
+    Crear Relaciones en las entidades.
     Crear contexto hacia la DB
     Crear Servicio relacionado al contexto.
     Inyectar dependencias en program.cs
