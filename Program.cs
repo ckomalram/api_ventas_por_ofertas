@@ -1,4 +1,6 @@
 using api_ventas_por_oferta.Core.Context;
+using api_ventas_por_oferta.Core.Interfaces;
+using api_ventas_por_oferta.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +26,7 @@ builder.Services.AddCors(opt =>
 builder.Services.AddSqlServer<BienesContext>(builder.Configuration.GetConnectionString("cnbuscobienes"));
 
 //TODO: Inyectar servicios
-//.....//
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 var app = builder.Build();
 
