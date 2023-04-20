@@ -27,6 +27,7 @@ builder.Services.AddSqlServer<BienesContext>(builder.Configuration.GetConnection
 
 //TODO: Inyectar servicios
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IPatioService, PatioService>();
 
 var app = builder.Build();
 
