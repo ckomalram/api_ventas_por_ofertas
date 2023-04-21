@@ -89,8 +89,8 @@ namespace api_ventas_por_oferta.Migrations
                     Monto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FechaDeOferta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    AutoId = table.Column<int>(type: "int", nullable: true),
-                    InmuebleId = table.Column<int>(type: "int", nullable: true)
+                    AutoId = table.Column<int>(type: "int", nullable: false),
+                    InmuebleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +99,8 @@ namespace api_ventas_por_oferta.Migrations
                         name: "FK_Ofertas_Autos_AutoId",
                         column: x => x.AutoId,
                         principalTable: "Autos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ofertas_Clientes_ClienteId",
                         column: x => x.ClienteId,
@@ -110,7 +111,8 @@ namespace api_ventas_por_oferta.Migrations
                         name: "FK_Ofertas_Inmuebles_InmuebleId",
                         column: x => x.InmuebleId,
                         principalTable: "Inmuebles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,7 +123,7 @@ namespace api_ventas_por_oferta.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FechaDeVisita = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    AutoId = table.Column<int>(type: "int", nullable: true),
+                    AutoId = table.Column<int>(type: "int", nullable: false),
                     InmuebleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -131,7 +133,8 @@ namespace api_ventas_por_oferta.Migrations
                         name: "FK_Visitas_Autos_AutoId",
                         column: x => x.AutoId,
                         principalTable: "Autos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Visitas_Clientes_ClienteId",
                         column: x => x.ClienteId,

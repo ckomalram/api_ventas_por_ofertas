@@ -13,8 +13,8 @@ public class Auto
     public Patio Patio { get; set; }
 
     // Propiedad de navegacion
-    // public List<Oferta> Ofertas { get; set; }
-    // public List<Visita> Visitas { get; set; }
+    public List<Oferta> Ofertas { get; set; }
+    public List<Visita> Visitas { get; set; }
 
 
 }

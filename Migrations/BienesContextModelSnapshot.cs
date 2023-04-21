@@ -129,6 +129,7 @@ namespace api_ventas_por_oferta.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("AutoId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("ClienteId")
@@ -138,6 +139,7 @@ namespace api_ventas_por_oferta.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("InmuebleId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<decimal>("Monto")
@@ -180,6 +182,7 @@ namespace api_ventas_por_oferta.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int?>("AutoId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("ClienteId")
@@ -216,8 +219,10 @@ namespace api_ventas_por_oferta.Migrations
             modelBuilder.Entity("api_ventas_por_oferta.Core.Entity.Oferta", b =>
                 {
                     b.HasOne("api_ventas_por_oferta.Core.Entity.Auto", "Auto")
-                        .WithMany()
-                        .HasForeignKey("AutoId");
+                        .WithMany("Ofertas")
+                        .HasForeignKey("AutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("api_ventas_por_oferta.Core.Entity.Cliente", "Cliente")
                         .WithMany("Ofertas")
@@ -227,7 +232,9 @@ namespace api_ventas_por_oferta.Migrations
 
                     b.HasOne("api_ventas_por_oferta.Core.Entity.Inmueble", "Inmueble")
                         .WithMany("Ofertas")
-                        .HasForeignKey("InmuebleId");
+                        .HasForeignKey("InmuebleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Auto");
 
@@ -239,8 +246,10 @@ namespace api_ventas_por_oferta.Migrations
             modelBuilder.Entity("api_ventas_por_oferta.Core.Entity.Visita", b =>
                 {
                     b.HasOne("api_ventas_por_oferta.Core.Entity.Auto", "Auto")
-                        .WithMany()
-                        .HasForeignKey("AutoId");
+                        .WithMany("Visitas")
+                        .HasForeignKey("AutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("api_ventas_por_oferta.Core.Entity.Cliente", "Cliente")
                         .WithMany("Visitas")
@@ -257,6 +266,13 @@ namespace api_ventas_por_oferta.Migrations
                     b.Navigation("Cliente");
 
                     b.Navigation("Inmueble");
+                });
+
+            modelBuilder.Entity("api_ventas_por_oferta.Core.Entity.Auto", b =>
+                {
+                    b.Navigation("Ofertas");
+
+                    b.Navigation("Visitas");
                 });
 
             modelBuilder.Entity("api_ventas_por_oferta.Core.Entity.Cliente", b =>
