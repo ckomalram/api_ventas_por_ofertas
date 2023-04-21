@@ -1,6 +1,7 @@
 using api_ventas_por_oferta.Core.Dto;
 using api_ventas_por_oferta.Core.Entity;
 using api_ventas_por_oferta.Core.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_ventas_por_oferta.Controllers;
@@ -10,27 +11,31 @@ namespace api_ventas_por_oferta.Controllers;
 public class PatiosController : ControllerBase
 {
     IPatioService _service;
-    public PatiosController(IPatioService service)
+    IMapper _mapper;
+
+    public PatiosController(
+        IPatioService service
+    , IMapper mapper
+    )
     {
         _service = service;
+        _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Patio>>> ObtenerTodos()
+    public async Task<ActionResult<IEnumerable<PatioResponseDto>>> ObtenerTodos()
     {
         var rta = await _service.ObtenerPatios();
-        return Ok(rta);
+        return Ok(_mapper.Map<IEnumerable<PatioResponseDto>>(rta));
+        // return Ok(rta);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Crear(PatioDto patioDto)
+    [HttpGet("autos")]
+    public async Task<ActionResult<IEnumerable<PatioAutoResponseDto>>> ObtenerTodosConAutos()
     {
-        var nuevoPatio = new Patio
-        {
-            Nombre = patioDto.Nombre
-        };
-        await _service.CrearPatio(nuevoPatio);
-        return Ok(nuevoPatio);
+        var rta = await _service.ObtenerPatios();
+        return Ok(_mapper.Map<IEnumerable<PatioAutoResponseDto>>(rta));
+        // return Ok(rta);
     }
 
     [HttpGet("{patioId}")]
@@ -41,11 +46,29 @@ public class PatiosController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(patio);
+
+        return Ok(_mapper.Map<PatioAutoResponseDto>(patio));
+
+        // return Ok(patio);
     }
 
+    [HttpPost]
+    public async Task<ActionResult<Patio>> Crear(PatioCreateDto patioDto)
+    {
+        var nuevoPatio = new Patio
+        {
+            Nombre = patioDto.Nombre
+        };
+        var rta = await _service.CrearPatio(nuevoPatio);
+        return Ok(_mapper.Map<PatioResponseDto>(rta));
+
+        // return Ok(rta);
+    }
+
+
+
     [HttpPut("{patioId}")]
-    public async Task<IActionResult> Actualizar(int patioId, Patio patioActualizado)
+    public async Task<IActionResult> Actualizar(int patioId, PatioCreateDto patioActualizado)
     {
         var patioexistente = await _service.ObtenerPatioPorId(patioId);
         if (patioexistente == null)
@@ -56,7 +79,10 @@ public class PatiosController : ControllerBase
 
         // Actualizar otras propiedades del cliente
         await _service.ActualizarPatio(patioexistente);
-        return Ok(patioexistente);
+
+        return Ok(_mapper.Map<PatioResponseDto>(patioexistente));
+
+        // return Ok(patioexistente);
     }
 
     [HttpDelete("{patioId}")]

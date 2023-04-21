@@ -35,3 +35,13 @@ public class AutoResponseDto
     public string PatioNombre { get; set; }
 
 }
+
+public class AutoPatioResponseDto
+{
+    public int Id { get; set; }
+    public string Marca { get; set; }
+    public string Modelo { get; set; }
+    public int Annio { get; set; }
+    public decimal Precio { get; set; }
+
+}

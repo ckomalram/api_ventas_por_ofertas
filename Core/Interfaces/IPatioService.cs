@@ -8,9 +8,9 @@ public interface IPatioService
     Task<Patio> ObtenerPatioPorId(int patioId);
     Task<Patio> CrearPatio(Patio patio);
 
-    Task ActualizarPatio(Patio patio);
+    Task<bool> ActualizarPatio(Patio patio);
 
-    Task EliminarPatio(int patioId);
+    Task<bool> EliminarPatio(int patioId);
 
 
 }
